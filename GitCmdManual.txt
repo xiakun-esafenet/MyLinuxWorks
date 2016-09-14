@@ -39,3 +39,5 @@ git branch	#查看当前分支
 git branch –d dev	#删除分支dev
 
 git merge dev	#首先要运行到需要合并的分析，例如主干master，然后再执行上述命令将dev分支的内容合并到主干上。
+
+.gitignore #add file or directory to be ignored
