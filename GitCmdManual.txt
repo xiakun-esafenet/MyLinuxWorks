@@ -28,16 +28,25 @@ git remote add origin https://github.com/xiakun-esafenet/ACE_Example_Codes.git
 git push origin master
 git pull
 
-git checkout -b dev	#创建并进入dev分支，相当于下面两条命令的组合
+git checkout -b dev	#create and enter the branch of dev
 git branch dev
 git checkout dev
 
-git checkout master	#回到主分支
+git checkout master	#back to master branch
 
-git branch	#查看当前分支
+git branch	#check the current branch
 	
-git branch –d dev	#删除分支dev
+git branch –d dev	#delete the branch of dev
 
-git merge dev	#首先要运行到需要合并的分析，例如主干master，然后再执行上述命令将dev分支的内容合并到主干上。
+#enter the branch of master first, then merge the branch of dev into master
+git merge dev	
 
-.gitignore #add file or directory to be ignored
+#add file or directory to be ignored
+#create the file .gitignore and write ".gitignore" at the first line
+#and then add the files or directories you wanna ignore
+.gitignore 
+
+#resolve input username and password when push
+#open .git/config
+#url = https://github.com/xiakun-esafenet/MyLinuxWorks.git
+#--> url = git@github.com:xiakun-esafenet/MyLinuxWorks.git
