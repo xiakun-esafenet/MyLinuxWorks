@@ -24,7 +24,7 @@ namespace ReactorDaemon
 		~EpollDemultiplexer();
 		virtual int RequestEvent(event_t evt, handle_t handle);
 		virtual int UnRequestEvent(handle_t handle);
-		virtual int WaitEvents(EVENTHANDLERLIST* pHandlers, int timeout=0, TimeHeaper* event_timer = NULL);
+		virtual int WaitEvents(EVENTHANDLERLIST* pHandlers, int timeout=0, TimeHeap* event_timer = NULL);
 	private:
 		int m_epoll_fd;
 		int m_fd_num;

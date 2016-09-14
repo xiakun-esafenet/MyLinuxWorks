@@ -50,9 +50,9 @@ namespace ReactorDaemon
 		return 0;
 	}
 
-	void EpollDemultiplexer::WaitEvents(EVENTHANDLERLIST * pHandlers,int timeout,TimeHeaper * event_timer)
+	void EpollDemultiplexer::WaitEvents(EVENTHANDLERLIST * pHandlers,int timeout,TimeHeap * event_timer)
 	{
-	
+		
 	}
 	
 }
