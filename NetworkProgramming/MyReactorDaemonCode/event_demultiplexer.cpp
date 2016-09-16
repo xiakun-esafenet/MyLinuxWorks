@@ -1,4 +1,5 @@
 #include "event_demultiplexer.h"
+#include <vector>
 
 namespace ReactorDaemon
 {
@@ -50,9 +51,23 @@ namespace ReactorDaemon
 		return 0;
 	}
 
-	void EpollDemultiplexer::WaitEvents(EVENTHANDLERLIST * pHandlers,int timeout,TimeHeap * event_timer)
+	int EpollDemultiplexer::WaitEvents(EVENTHANDLERLIST * pHandlers,int timeout,TimeHeap * event_timer)
 	{
+		std::vector<struct epoll_event> evs(m_fd_num);
+
+		int nReadyCnt = epoll_wait(m_epoll_fd, &evs[0], evs.size(), timeout);
+		handle_t handle;
+
+		for(int i=0; i<nReadyCnt; i++)
+		{
+			handle = evs[i].data.fd;
+			(*pHandlers)[handle]->HandleEvent(evs[i].events);
+		}
+
+		if( event_timer!=NULL )
+			event_timer->tick();
 		
+		return nReadyCnt;
 	}
-	
 }
+

@@ -22,7 +22,7 @@ namespace ReactorDaemon
 		Reactor* m_pReactor;
 		EventDemultiplexer* m_pEvtDemultiplexer;
 		EVENTHANDLERLIST m_mapHandlers;
-		TimeHeaper* m_pEventTimer;
+		TimeHeap* m_pEventTimer;
 	};
 }
 
