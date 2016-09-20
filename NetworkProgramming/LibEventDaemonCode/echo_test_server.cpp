@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define SERV_PORT	(9999)
+#define SERV_PORT	(9000)
 
 struct sock_ev
 {
@@ -140,7 +140,7 @@ void on_accept(int sockfd, short event, void* param)
 {
 	int conn_fd;
 	struct sockaddr_in client_addr;
-	int client_addr_len = 0;
+	int client_addr_len = sizeof(struct sockaddr_in);
 
 	bzero(&client_addr, sizeof(struct sockaddr_in));
 	if( (conn_fd=accept(sockfd, (struct sockaddr*)&client_addr, (socklen_t*)&client_addr_len))<0 )
@@ -149,7 +149,7 @@ void on_accept(int sockfd, short event, void* param)
 		close(sockfd);
 		return;
 	}
-
+	
 	cout<<"new connection, ip: "<<inet_ntoa(client_addr.sin_addr)<<", port: "<<ntohs(client_addr.sin_port)<<endl;
 	create_client_thread(conn_fd);
 
@@ -185,6 +185,7 @@ int main(int argc, char* argv[])
 		close(sockfd);
 		return -1;
 	}
+	
 
 	struct event_base* base = event_base_new();
 	struct event* ev_accept = (struct event*)malloc(sizeof(struct event));
