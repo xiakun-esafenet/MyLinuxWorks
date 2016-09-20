@@ -96,7 +96,7 @@ void on_read(int sockfd, short event, void* param)
 	ev_write->ev_write = (struct event*)malloc(sizeof(struct event));
 	ev_write->msg_buffer = p_buffer;
 	
-	event_set(ev_write->ev_write, sockfd, EV_WRITE, on_write, (void*)sock_ev_write);
+	event_set(ev_write->ev_write, sockfd, EV_WRITE, on_write, (void*)ev_write);
 	event_base_set(ev_read->base, ev_write->ev_write);
 	event_add(ev_write->ev_write, NULL);
 
@@ -143,7 +143,7 @@ void on_accept(int sockfd, short event, void* param)
 	int client_addr_len = 0;
 
 	bzero(&client_addr, sizeof(struct sockaddr_in));
-	if( (conn_fd=accept(sockfd, (struct sockaddr*)&client_addr, &client_addr_len))<0 )
+	if( (conn_fd=accept(sockfd, (struct sockaddr*)&client_addr, (socklen_t*)&client_addr_len))<0 )
 	{
 		perror("accept");
 		close(sockfd);
