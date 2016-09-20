@@ -101,15 +101,16 @@ void on_write(int sockfd)
 {
 	bool isbreak = false;
 	char szMsgBuf[MAX_BUFFER_SIZE] = {0};
-	string strMsg;
 	
 	while( isbreak==false )
 	{
 		cout<<"input msg you wanna send to server, \"q\" for quit."<<endl;
-		cin>>strMsg;
-		if( *strMsg.c_str()=='q' )
+		memset(szMsgBuf, 0, sizeof(szMsgBuf));
+		cin.getline(szMsgBuf, sizeof(szMsgBuf));
+		
+		if( *szMsgBuf=='q' )
 			break;
-		if( send(sockfd, strMsg.c_str(), strMsg.size(), 0)<=0 )
+		if( send(sockfd, szMsgBuf, strlen(szMsgBuf), 0)<=0 )
 			continue;
 		sleep(2);
 	}
@@ -131,6 +132,8 @@ int main(int argc, char* argv[])
 	if( (sockfd=on_connect(ip, port))<0 )
 		return -1;
 
+	init_read_base_thread(sockfd);
+	
 	on_write(sockfd);
 
 	close(sockfd);
