@@ -168,6 +168,10 @@ int main(int argc, char* argv[])
 	}
 
 	bzero(&local_addr, sizeof(struct sockaddr_in));
+	local_addr.sin_family = AF_INET;
+	local_addr.sin_port = htons(SERV_PORT);
+	local_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	
 	if( bind(sockfd, (struct sockaddr*)&local_addr, sizeof(struct sockaddr))<0 )
 	{
 		perror("bind");
