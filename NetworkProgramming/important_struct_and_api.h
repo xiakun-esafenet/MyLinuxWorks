@@ -1,3 +1,6 @@
+#ifndef	_IMPORTANT_STRUCT_API_NO_USE_
+#define _IMPORTANT_STRUCT_API_NO_USE_
+
 struct sockaddr_in
 {
 	sa_family_t sin_family; //AF_INET
@@ -172,4 +175,11 @@ int atoi(const char *nptr);
 long atol(const char *nptr);
 long long atoll(const char *nptr);
 long long atoq(const char *nptr);
+
+#include <sys/types.h>          
+#include <sys/socket.h>
+int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen);
+int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
+
+#endif
 
